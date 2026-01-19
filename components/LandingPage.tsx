@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, Shield, Zap, Cpu, Terminal, Heart, Code, Smartphone, Globe, CheckCircle2, Layout } from 'lucide-react';
+import { Sparkles, ArrowRight, Shield, Zap, Cpu, Terminal, Heart, Code, Layout, Globe, CheckCircle2 } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -98,7 +97,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       >
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-500/5 border border-blue-500/20 rounded-full text-[10px] font-black text-blue-400 mb-10 tracking-[0.2em] uppercase">
           <Sparkles size={14} className="text-blue-400 animate-pulse" />
-          Powered by Gemini 3 Pro
+          Powered by Puter (Kimi)
         </motion.div>
         
         <motion.h1 variants={itemVariants} className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.9] bg-gradient-to-b from-white via-white to-zinc-600 bg-clip-text text-transparent">
@@ -133,8 +132,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             <FeatureCard 
               delay={0.1}
               icon={<Shield size={28} className="text-blue-400" />}
-              title="Locally Secure"
-              desc="Your data is your business. We prioritize local storage and top-tier encryption standards."
+              title="Cloud Native"
+              desc="Powered by Puter.js cloud infrastructure for reliable and fast responses."
             />
             <FeatureCard 
               delay={0.2}
@@ -145,8 +144,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             <FeatureCard 
               delay={0.3}
               icon={<Code size={28} className="text-purple-400" />}
-              title="Modern Core"
-              desc="Built by Stoky using Gemini 3's advanced logic for lightning-fast analysis and coding."
+              title="Kimi Engine"
+              desc="Built by Stoky using the Kimi (Moonshot) model for superior logical reasoning."
             />
           </div>
 
