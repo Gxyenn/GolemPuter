@@ -9,15 +9,11 @@ export async function getPuterResponse(
   history: Message[]
 ): Promise<string> {
   try {
-    // Cek ketersediaan Puter.js
     if (typeof puter === 'undefined') {
       throw new Error("Puter.js belum dimuat. Pastikan ada script puter.js di index.html");
     }
 
-    // Cek login (Kimi kadang butuh user login di puter.com)
     if (!puter.auth.isSignedIn()) {
-      // Opsi: Sign in diam-diam atau biarkan guest (tergantung limit)
-      // await puter.auth.signIn(); 
       console.warn("User belum login ke Puter, limit mungkin terbatas.");
     }
 
@@ -30,31 +26,30 @@ export async function getPuterResponse(
       { role: 'user', content: prompt }
     ];
 
-    console.log("Mengirim request ke Kimi...");
+    console.log("REQUEST MESSAGES:", messages);
 
-    // Menggunakan Model 'kimi' sesuai permintaan
     const response = await puter.ai.chat(messages, { 
       model: 'kimi2',
       stream: false 
     });
 
-    if (!response || !response.message) {
-      throw new Error("Kimi menolak merespon (Mungkin terkena filter safety).");
+    console.log("PUTER RESPONSE RAW:", response);
+
+    // Fallback jika response kosong
+    if (!response || !response.message?.content) {
+      throw new Error("Golem menolak merespon atau response kosong.");
     }
 
     return response.message.content;
 
   } catch (error: any) {
-  console.error("DEBUG ERROR KIMI:", error);
+    console.error("DEBUG ERROR Golem:", error);
+    let errorMessage = error?.message || (typeof error === 'object' ? JSON.stringify(error) : String(error));
 
-  // Ambil message asli kalau ada, kalau object convert ke JSON string
-  let errorMessage = error?.message || JSON.stringify(error) || String(error);
+    if (errorMessage.includes("safety") || errorMessage.includes("content policy") || errorMessage.includes("400")) {
+      return `[SYSTEM ALERT] Golem menolak instruksi karena filter keamanan. Error: ${errorMessage}`;
+    }
 
-  // Filter khusus safety/content
-  if (errorMessage.includes("safety") || errorMessage.includes("content policy") || errorMessage.includes("400")) {
-    return `[SYSTEM ALERT] Kimi menolak instruksi karena filter keamanan. Error: ${errorMessage}`;
+    return `[SYSTEM ERROR] Gagal menghubungi Golem Mainframe: ${errorMessage}. Coba refresh browser. 😉`;
   }
-
-  return `[SYSTEM ERROR] Gagal menghubungi Kimi Mainframe: ${errorMessage}. Coba refresh browser. ☠️`;
-}
 }
