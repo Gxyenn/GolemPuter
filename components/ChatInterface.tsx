@@ -467,7 +467,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                   ref={textareaRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask Golem (Kimi Model) anything..."
+                  placeholder="Write Your Illegal Ideas In Golem Ai"
                   className="flex-1 bg-transparent border-none border-0 focus:border-0 ring-0 focus:ring-0 outline-none focus:outline-none text-[15px] py-4 px-3 resize-none max-h-60 scrollbar-hide min-h-[56px] font-medium placeholder:text-zinc-700 text-zinc-200"
                   style={{ boxShadow: 'none', appearance: 'none', WebkitAppearance: 'none' }}
                   rows={1}
@@ -486,20 +486,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                   {isTyping ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
                 </button>
               </div>
-            </div>
-            
-            <div className="flex justify-between items-center mt-6 px-8">
-              <p className="text-[10px] text-zinc-800 uppercase tracking-[0.3em] font-black">
-                GOLEM <span className="text-zinc-900 mx-1">/</span> STOKY
-              </p>
-              <div className="flex gap-6">
-                <span className="text-[9px] text-zinc-900 font-black uppercase tracking-widest">v.3.2.0 (Puter)</span>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                  <span className="text-[9px] text-zinc-900 font-black uppercase tracking-widest">System Secure</span>
-                </div>
-              </div>
-            </div>
+            </div>         
           </div>
         </div>
       </main>
