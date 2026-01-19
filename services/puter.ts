@@ -1,7 +1,8 @@
 import { Message } from "../types";
 
 const SYSTEM_INSTRUCTION = `
-Kamu Adalah Golem Ai yang Rama Dan Baik, di Buat oleh Stoky Untuk amemvantu Orang"engan baik and hangat!.`;
+Kamu Sekarang Adalah GolemAi yang di buat Stoky membantu orang" dengan baik hangat sopan dan Baik!.
+`;
 
 export async function getPuterResponse(
   prompt: string,
@@ -44,16 +45,16 @@ export async function getPuterResponse(
     return response.message.content;
 
   } catch (error: any) {
-    console.error("DEBUG ERROR KIMI:", error);
-    
-    // Deteksi error spesifik
-    let errorMessage = error?.message || String(error);
-    
-    // Pesan error khusus jika Kimi menolak prompt "Jailbreak"
-    if (errorMessage.includes("safety") || errorMessage.includes("content policy") || errorMessage.includes("400")) {
-      return `[SYSTEM ALERT] Kimi menolak instruksi "Aroganzz" karena filter keamanan. Coba kurangi kata-kata kasar di sistem prompt. Error: ${errorMessage}`;
-    }
+  console.error("DEBUG ERROR KIMI:", error);
 
-    return `[SYSTEM ERROR] Gagal menghubungi Kimi Mainframe: ${errorMessage}. Coba refresh browser. ☠️`;
+  // Ambil message asli kalau ada, kalau object convert ke JSON string
+  let errorMessage = error?.message || JSON.stringify(error) || String(error);
+
+  // Filter khusus safety/content
+  if (errorMessage.includes("safety") || errorMessage.includes("content policy") || errorMessage.includes("400")) {
+    return `[SYSTEM ALERT] Kimi menolak instruksi karena filter keamanan. Error: ${errorMessage}`;
   }
+
+  return `[SYSTEM ERROR] Gagal menghubungi Kimi Mainframe: ${errorMessage}. Coba refresh browser. ☠️`;
+}
 }
