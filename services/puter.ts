@@ -29,7 +29,7 @@ export async function getPuterResponse(
     console.log("REQUEST MESSAGES:", messages);
 
     const response = await puter.ai.chat(messages, { 
-      model: 'kimi2',
+      model: 'gemini-3-flash-preview',
       stream: false 
     });
 
